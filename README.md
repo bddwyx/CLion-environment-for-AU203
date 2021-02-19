@@ -4,8 +4,12 @@
 
 ## 下载与安装
 
-### 
-
+### 打包下载
+​	这个Repository整理了所有不需要注册的、小于100M的东西，有Github使用经验的可以自行Clone。如果没有使用经验，按照下方步骤操作
+​	首先点击Star
+![Star](https://github.com/bddwyx/CLion-environment-for-AU203/blob/main/figure/Star.png)
+​	然后下载zip
+![Download](https://github.com/bddwyx/CLion-environment-for-AU203/blob/main/figure/Download.png)
 ### MinGW
 
 ### CLion
