@@ -131,7 +131,15 @@ int main() {
 
 ​	https://blog.csdn.net/weixin_40448140/article/details/104720134
 
+## 编译生成dll文件
+```CMake
+cmake_minimum_required(VERSION 3.17)
+project(driver_onhand)
 
+set(CMAKE_CXX_STANDARD 14)
+
+add_library(driver_onhand SHARED driver_onhand.cpp driver_onhand.h osspec.h tgf.h)
+```
 
 
 
