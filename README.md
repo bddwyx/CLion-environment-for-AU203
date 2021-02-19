@@ -22,9 +22,9 @@
 ### CLion
 ​	涉及到JetBrain教育账号注册，所以这里不提供安装包。学生创新中心软件授权中心	[JetBrains all in one](http://lic.si.sjtu.edu.cn/Default/softshow/tag/MDAwMDAwMDAwMLGedqE)
 
-![Settings](https://github.com/bddwyx/CLion-environment-for-AU203/blob/main/figure/Settings.png)
-
 ​	打开File-Settings(Ctrl+Alt+S)，在Build,Execution,Deployment-Toolchains如图配置(忽略STM32)
+
+![Settings](https://github.com/bddwyx/CLion-environment-for-AU203/blob/main/figure/Settings.png)
 
 ![Toolchain](https://github.com/bddwyx/CLion-environment-for-AU203/blob/main/figure/Toolchain.png)
 
@@ -33,7 +33,7 @@
 
 ![OpenCV](https://github.com/bddwyx/CLion-environment-for-AU203/blob/main/figure/OpenCV.png)
 
-​	build文件夹下的内容就可以给VS用了。但是CLion+MinGW下需要对源码重新编译。
+​	双击运行后，build文件夹下的内容就可以给VS用了。但是CLion+MinGW下需要对源码重新编译。
 
 ### CMake-gui
 
@@ -121,8 +121,8 @@ int main() {
 }
 ```
 ​	观察运行结果。如果返回奇怪的数值，修改执行策略。
-![Edit](https://github.com/bddwyx/CLion-environment-for-AU203/blob/main/figure/Editl.png)
-![Edit2](https://github.com/bddwyx/CLion-environment-for-AU203/blob/main/figure/Edit2l.png)
+![Edit](https://github.com/bddwyx/CLion-environment-for-AU203/blob/main/figure/Edit.png)
+![Edit2](https://github.com/bddwyx/CLion-environment-for-AU203/blob/main/figure/Edit2.png)
 
 ## Reference
 ​	https://blog.csdn.net/lwplwf/article/details/77369930
