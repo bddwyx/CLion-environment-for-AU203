@@ -2,19 +2,29 @@
 
 # 控制导论CLion环境配置教程
 
+## 折腾这一大堆的好处
+
+* 跨平台
+* JetBrain近年来的表现越来越好
+* ~~信仰~~
+
 ## 下载与安装
 
 ### 打包下载
 ​	这个Repository整理了所有不需要注册的、小于100M的东西，有Github使用经验的可以自行Clone。如果没有使用经验，按照下方步骤操作。
+
 ​	首先点击Star
 ![Star](https://github.com/bddwyx/CLion-environment-for-AU203/blob/main/figure/Star.png)
+
 ​	然后下载zip
 ![Download](https://github.com/bddwyx/CLion-environment-for-AU203/blob/main/figure/Download.png)
 
 ### MinGW
 
-​	MinGW(Minimalist [GNU](https://baike.baidu.com/item/GNU)for Windows)，一个GNU工具集导入库的集合，包括gcc、g++、gdb等。
+​	MinGW(Minimalist [GNU](https://baike.baidu.com/item/GNU) for Windows)，一个GNU工具集导入库的集合，包括gcc、g++、gdb等。
+
 ​	年代久远，之前使用的安装包和资源包中的版本不同。双击安装，记住安装路径，后面会考。
+
 ​	下一步是添加环境变量，搜索栏搜索或者此电脑–右键属性–高级系统设置–环境变量–系统变量中PATH–编辑，添加刚刚的安装路径\bin
 ![Environment](https://github.com/bddwyx/CLion-environment-for-AU203/blob/main/figure/Environment.png)
 ![Variable](https://github.com/bddwyx/CLion-environment-for-AU203/blob/main/figure/Variable.png)
@@ -70,6 +80,7 @@ cd E:\OpenCV\4.5.1\newBuild
 ```
 ​	其中后面的路径需要根据实际情况改成自己的。回车执行。
 ![Shell](https://github.com/bddwyx/CLion-environment-for-AU203/blob/main/figure/Shell.png)
+
 ​	然后
 
 ```Linux
@@ -77,7 +88,12 @@ mingw32-make -j4
 ```
 ​	这个-j后面的数字可以根据自己电脑的情况来定。我的电脑是R7-4800，通常-j16，几分钟就完成了，结果上次一激动-j24，爆了内存，后5%占用了一半时间才完成。
 
-​	场面会极其惨烈，几百个几百个报warning。完成之后继续
+​	场面会极其惨烈，几百个几百个报warning。可能会报错，如果报错和Python有关，最简单的方法就是把电脑上的Python都卸载干净。同理还可能有JAVA的报错。
+
+​	这个过程时间会比较长，可以看看[猫片1](https://www.bilibili.com/video/BV18J411h7Bj?from=search&seid=6369731823639503698) [猫片2](https://www.bilibili.com/video/BV1dZ4y1x72L?from=search&seid=6369731823639503698) [猫片3](https://www.bilibili.com/video/BV1v54y1W7sd?from=search&seid=6369731823639503698)
+
+​	完成之后继续
+
 ```Linux
 mingw32-make install
 ```
@@ -101,6 +117,7 @@ find_package(OpenCV REQUIRED)
 target_link_libraries(451Test ${OpenCV_LIBS})
 ```
 ​	main.cpp
+
 ```cpp
 #include <iostream>
 #include <opencv2/highgui/highgui.hpp>
@@ -114,8 +131,8 @@ int main() {
         cerr << "Error" << endl;
         return -1;
     }
-    namedWindow("pic", WINDOW_FULLSCREEN);
-    imshow("pic", img);
+    namedWindow("figure", WINDOW_FULLSCREEN);
+    imshow("figure", img);
     waitKey();
     return 0;
 }
