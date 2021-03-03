@@ -9,6 +9,7 @@
 * ~~信仰~~
 
 ## 下载与安装
+​	下文中存在基于MinGW与MSVC（32位编译）两种方法的配置方式，根据需求选择一种配置即可。
 
 ### 打包下载
 ​	这个Repository整理了所有不需要注册的、小于100M的东西，有Github使用经验的可以自行Clone。如果没有使用经验，按照下方步骤操作。
@@ -19,7 +20,7 @@
 ​	然后下载zip
 ![Download](https://github.com/bddwyx/CLion-environment-for-AU203/blob/main/figure/Download.png)
 
-### MinGW
+### MinGW（目前还没成功，现阶段还是基于MSVC）
 
 ​	MinGW(Minimalist [GNU](https://baike.baidu.com/item/GNU) for Windows)，一个GNU工具集导入库的集合，包括gcc、g++、gdb等。
 
@@ -36,14 +37,20 @@
 
 ![Settings](https://github.com/bddwyx/CLion-environment-for-AU203/blob/main/figure/Settings.png)
 
+#### MinGW
+
 ![Toolchain](https://github.com/bddwyx/CLion-environment-for-AU203/blob/main/figure/Toolchain.png)
+
+#### MSVC
+
+![Toolchain2](https://github.com/bddwyx/CLion-environment-for-AU203/blob/main/figure/Toolchain2.png)
 
 ### OpenCV源码
 ​	在交大校园网下点击下载	[OpenCV Release](https://opencv.org/releases/)
 
 ![OpenCV](https://github.com/bddwyx/CLion-environment-for-AU203/blob/main/figure/OpenCV.png)
 
-​	双击运行后，build文件夹下的内容就可以给VS用了。但是CLion+MinGW下需要对源码重新编译。
+​	双击运行后，build文件夹下的内容就可以给VS用了。但是CLion+MinGW下需要对源码重新编译，build下的内容也不支持vc16。
 
 ### CMake-gui
 
@@ -56,14 +63,22 @@
 ## OpenCV编译
 
 ### CMake
-​	选中两个路径，第一个是source文件夹路径，第二个是需要新建的目标文件夹(可以随便起名字，不要像我这么随意，可以叫x86mingw)。红色部分理论上应该是不存在的。
+​	选中两个路径，第一个是source文件夹路径，第二个是需要新建的目标文件夹(可以随便起名字，不要像我这么随意，可以叫x86mingw，x86vc16)。红色部分理论上应该是不存在的。
 ![CMake](https://github.com/bddwyx/CLion-environment-for-AU203/blob/main/figure/CMake.png)
+
+	#### MinGW
 
 ​	点击Configure，选项如图，等好长时间，这个阶段缺什么会自动补什么。
 
 ![Configure](https://github.com/bddwyx/CLion-environment-for-AU203/blob/main/figure/Configure.png)
 
 ![Configure2](https://github.com/bddwyx/CLion-environment-for-AU203/blob/main/figure/Configure2.png)
+
+	#### MSVC
+
+​	注意，如果vc16编译，第一栏应当选中vc16，第二栏选win32。
+
+![Configure1.2](https://github.com/bddwyx/CLion-environment-for-AU203/blob/main/figure/Configure1.2.png)
 
 ​	过程完成后就可以选编译选项了，如果有心情可以选一些Boost、Eigen、CUDA，没心情就算了。为了简化步骤，省略了OpenCV-Contrib的编译。之后Generate即可。
 
@@ -81,6 +96,9 @@ cd E:\OpenCV\4.5.1\newBuild
 ​	其中后面的路径需要根据实际情况改成自己的。回车执行。
 ![Shell](https://github.com/bddwyx/CLion-environment-for-AU203/blob/main/figure/Shell.png)
 
+​	根据编译器选择下面的步骤。
+
+#### MinGW
 ​	然后
 
 ```Linux
@@ -100,9 +118,17 @@ mingw32-make install
 
 ​	后面有一步环境变量，我也没太配对，索性不管了。
 
+#### MSVC
+
+```Linux
+cmake --build . --config Release
+```
+[猫片1](https://www.bilibili.com/video/BV18J411h7Bj?from=search&seid=6369731823639503698) [猫片2](https://www.bilibili.com/video/BV1dZ4y1x72L?from=search&seid=6369731823639503698) [猫片3](https://www.bilibili.com/video/BV1v54y1W7sd?from=search&seid=6369731823639503698)
+
 ## 测试
 ​	新建工程，CMakeList
 
+#### MinGW
 ```CMake
 cmake_minimum_required(VERSION 3.17)
 project(451Test)
@@ -116,6 +142,22 @@ find_package(OpenCV REQUIRED)
 
 target_link_libraries(451Test ${OpenCV_LIBS})
 ```
+
+#### MSVC
+```CMAKE
+cmake_minimum_required(VERSION 3.17)
+project(451Test)
+
+set(CMAKE_CXX_STANDARD 14)
+set(OpenCV_DIR E:/OpenCV/4.5.1/vc16x86/lib)
+set(CMAKE_PREFIX_PATH   E:/OpenCV/4.5.1/vc16x86)
+find_package(OpenCV REQUIRED)
+
+add_executable(451Test main.cpp)
+
+target_link_libraries(451Test ${OpenCV_LIBS})
+```
+
 ​	main.cpp
 
 ```cpp
@@ -126,7 +168,7 @@ using namespace std;
 using namespace cv;
 
 int main() {
-    Mat img = imread("C:\\Users\\bddwy\\Desktop\\Hero.bmp"); //路径也是要改的，随便找一张图片
+    Mat img = imread(R"(C:\Users\bddwy\Desktop\Hero.bmp)"); //路径也是要改的，随便找一张图片
     if (img.empty()) {
         cerr << "Error" << endl;
         return -1;
@@ -137,9 +179,20 @@ int main() {
     return 0;
 }
 ```
+​	Settings中配置CMake	
+
+![CLionCMake](https://github.com/bddwyx/CLion-environment-for-AU203/blob/main/figure/CLionCMake.png)
+
 ​	观察运行结果。如果返回奇怪的数值，修改执行策略。
 ![Edit](https://github.com/bddwyx/CLion-environment-for-AU203/blob/main/figure/Edit.png)
+
+#### MinGW
+
 ![Edit2](https://github.com/bddwyx/CLion-environment-for-AU203/blob/main/figure/Edit2.png)
+
+#### CLion
+
+![Edit3](https://github.com/bddwyx/CLion-environment-for-AU203/blob/main/figure/Edit3.png)
 
 ## Reference
 ​	https://blog.csdn.net/lwplwf/article/details/77369930
@@ -148,14 +201,16 @@ int main() {
 
 ​	https://blog.csdn.net/weixin_40448140/article/details/104720134
 
-## 编译生成dll文件
+​	https://blog.csdn.net/weixin_41115751/article/details/101310690
+
+## 编译生成dll文件（MSVC）
 ```CMake
 cmake_minimum_required(VERSION 3.17)
 project(driver_onhand)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_library(driver_onhand SHARED driver_onhand.cpp driver_onhand.h osspec.h tgf.h)
+add_library(driver_onhand SHARED driver_onhand.cpp driver_onhand.h driver_onhand.def osspec.h tgf.h)
 ```
 
 
