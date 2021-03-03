@@ -195,7 +195,7 @@ int main() {
 
 ![Edit2](https://github.com/bddwyx/CLion-environment-for-AU203/blob/main/figure/Edit2.png)
 
-#### CLion
+#### MSVC
 
 ![Edit3](https://github.com/bddwyx/CLion-environment-for-AU203/blob/main/figure/Edit3.png)
 
