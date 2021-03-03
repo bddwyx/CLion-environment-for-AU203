@@ -149,16 +149,33 @@ target_link_libraries(451Test ${OpenCV_LIBS})
 #### MSVC
 ```CMAKE
 cmake_minimum_required(VERSION 3.17)
-project(451Test)
+project(driver_cruise)
 
 set(CMAKE_CXX_STANDARD 14)
-set(OpenCV_DIR E:/OpenCV/4.5.1/vc16x86/lib)
-set(CMAKE_PREFIX_PATH   E:/OpenCV/4.5.1/vc16x86)
+
+#OpenCV
+set(OpenCV_DIR ${PROJECT_SOURCE_DIR}/ThirdParty/OpenCV/lib)
+set(CMAKE_PREFIX_PATH   ${PROJECT_SOURCE_DIR}/ThirdParty/OpenCV)
 find_package(OpenCV REQUIRED)
 
-add_executable(451Test main.cpp)
+#AutoUpdate
+set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/CyberTORCS_2021Spring_V1.0_Publish/cybercruise)
 
-target_link_libraries(451Test ${OpenCV_LIBS})
+#Interface
+set(INTERFACE_SRC Interface/driver_cruise.cpp Interface/driver_cruise.def)
+include_directories(Interface)
+
+#Plugins
+set(PLOT_SRC Plugins/Ploter/class_Visualization.cpp)
+include_directories(Plugins/Ploter)
+
+#Generate dll
+add_library(driver_cruise SHARED ${INTERFACE_SRC} ${PLOT_SRC})
+target_link_libraries(driver_cruise ${OpenCV_LIBS})
+
+#MSVC Configuration
+set_target_properties(driver_cruise PROPERTIES COMPILE_FLAGS "/Gd" ) #_cdecl
+set_target_properties(driver_cruise PROPERTIES COMPILE_FLAGS "/Oi" ) #inline
 ```
 
 ​	main.cpp
