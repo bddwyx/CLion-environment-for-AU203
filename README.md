@@ -30,6 +30,9 @@
 ![Environment](https://github.com/bddwyx/CLion-environment-for-AU203/blob/main/figure/Environment.png)
 ![Variable](https://github.com/bddwyx/CLion-environment-for-AU203/blob/main/figure/Variable.png)
 
+### MSVC
+​	最简单的方法，利用Visual Studio 2019的安装包，安装VC16与Windows SDK
+
 ### CLion
 ​	涉及到JetBrain教育账号注册，所以这里不提供安装包。学生创新中心软件授权中心	[JetBrains all in one](http://lic.si.sjtu.edu.cn/Default/softshow/tag/MDAwMDAwMDAwMLGedqE)
 
@@ -179,7 +182,9 @@ int main() {
     return 0;
 }
 ```
-​	Settings中配置CMake	
+​	Settings中配置CMake
+
+​	下图为MSVC，MinGW同理，Toolchain选对即可。
 
 ![CLionCMake](https://github.com/bddwyx/CLion-environment-for-AU203/blob/main/figure/CLionCMake.png)
 
